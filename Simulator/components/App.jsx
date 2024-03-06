@@ -58,6 +58,8 @@ class App extends Component {
     //Bind WDC Actions
     this.setAddressBarUrl = (url) =>
       dispatch(simulatorActions.setAddressBarUrl(url));
+    this.setApiUrl = (url) =>
+      dispatch(simulatorActions.setApiUrl(url));
     this.setWdcShouldFetchAllTables = (should) =>
       dispatch(simulatorActions.setWdcShouldFetchAllTables(should));
     this.setWdcAttrs = (attrs) =>
@@ -126,6 +128,9 @@ class App extends Component {
               addressBarUrl={this.props.addressBarUrl}
               mostRecentUrls={this.props.mostRecentUrls}
               setAddressBarUrl={this.setAddressBarUrl}
+              apiUrl={this.props.apiUrl}
+              setApiUrl={this.props.setApiUrl}
+              apiUrls={this.props.apiUrls}
             />
           </Col>
           <Col md={6} className="run-connector">

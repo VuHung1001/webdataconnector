@@ -8,3 +8,5 @@ _site/
 .eslintcache
 .DS_Store
 Gemfile
+package-lock.json
+.idea/

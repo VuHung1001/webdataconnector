@@ -33,8 +33,12 @@ export default handleActions({
     ({ ...state, wdcUrl: action.payload }),
   SET_ADDRESS_BAR_URL: (state, action) =>
     ({ ...state, addressBarUrl: action.payload }),
+  SET_API_URL: (state, action) =>
+    ({ ...state, apiUrl: action.payload }),
   SET_MOST_RECENT_URLS: (state, action) =>
     ({ ...state, mostRecentUrls: action.payload }),
+  SET_API_URLS: (state, action) =>
+    ({ ...state, apiUrls: action.payload }),
   SET_WDC_SHOULD_FETCH_ALL_TABLES: (state, action) =>
     ({ ...state, wdcShouldFetchAllTables: action.payload }),
   SET_CURRENT_PHASE: (state, action) =>

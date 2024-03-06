@@ -142,6 +142,8 @@ export function handleSubmit() {
 
 export function handleSchemaCallback(schema, standardConnections) {
   return (dispatch, getState) => {
+    /* eslint-disable-next-line */
+    debugger;
     // Validate schema, and populate store with new table objects
     // using the schema info
     const { wdcShouldFetchAllTables } = getState();
@@ -154,6 +156,8 @@ export function handleSchemaCallback(schema, standardConnections) {
 
         return { ...tables, [tableInfo.id]: newTable };
       }, {});
+      /* eslint-disable-next-line */
+      debugger;
       dispatch(simulatorActions.addTables(newTables));
 
       // if we are supposed to automatically fetch the tables, do it
@@ -175,11 +179,15 @@ export function handleSchemaCallback(schema, standardConnections) {
 
 export function handleDataCallback(tableName, data) {
   return (dispatch, getState) => {
+    /* eslint-disable-next-line */
+    debugger;
     // if data is valid, add it to the appropriate tables object in the store
     if (validateData(data)) {
       const { tables } = getState();
       const newTables = Object.assign({}, tables);
       newTables[tableName].data = newTables[tableName].data.concat(data);
+      /* eslint-disable-next-line */
+      debugger;
       dispatch(simulatorActions.setTables(newTables));
     } else {
       toastr.error('Please see debug console for details.', 'WDC Validation Error');
@@ -271,6 +279,8 @@ export function sendGetHeaders() {
 // Takes an array of tableuInfo/incValue pairs
 export function sendGetData(tablesAndIncrementValues, isFreshFetch) {
   return (dispatch) => {
+    /* eslint-disable-next-line */
+    debugger;
     if (isFreshFetch) {
       const tableKey = tablesAndIncrementValues[0].tableInfo.id;
       dispatch(simulatorActions.resetTableData(tableKey));
@@ -289,6 +299,8 @@ export function sendShutdown() {
 
 export function fetchAllData() {
   return (dispatch, getState) => {
+    /* eslint-disable-next-line */
+    debugger;
     // Loop through our tables and tell the wdc to give us the data
     // for each of them
     const { tables } = getState();

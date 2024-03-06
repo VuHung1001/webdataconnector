@@ -25,6 +25,7 @@ describe('Thunks', () => {
       const commitUrlActions= [
         { type: "SET_WDC_URL", payload: consts.defaultUrl },
         { type: "SET_ADDRESS_BAR_URL", payload: consts.defaultUrl },
+        { type: "SET_API_URL", payload: consts.defaultApi },
         { type: "SET_MOST_RECENT_URLS", payload: consts.samples},
       ];
 

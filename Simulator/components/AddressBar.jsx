@@ -18,6 +18,8 @@ class AddressBar extends Component {
     super(props);
     this.handleAddressBarUrlInput = this.handleAddressBarUrlInput.bind(this);
     this.handleAddressBarUrlSelect = this.handleAddressBarUrlSelect.bind(this);
+    this.handleApiUrlInput = this.handleApiUrlInput.bind(this);
+    this.handleApiUrlSelect = this.handleApiUrlSelect.bind(this);
   }
 
   handleAddressBarUrlInput(e) {
@@ -28,8 +30,24 @@ class AddressBar extends Component {
     this.props.setAddressBarUrl(eventKey);
   }
 
+  handleApiUrlInput(e) {
+    this.props.setApiUrl(e.target.value);
+  }
+
+  handleApiUrlSelect(eventKey) {
+    this.props.setApiUrl(eventKey);
+  }
+
   render() {
-    const menuItems = this.props.mostRecentUrls.map((url, idx) =>
+    // const menuItems = this.props.mostRecentUrls.map((url, idx) =>
+    //   <MenuItem
+    //     eventKey={url}
+    //     key={idx}
+    //   >
+    //     {url}
+    //   </MenuItem>
+    // );
+    const menuItems = this.props.apiUrls.map((url, idx) =>
       <MenuItem
         eventKey={url}
         key={idx}
@@ -42,7 +60,7 @@ class AddressBar extends Component {
       <FormGroup>
         <ControlLabel> Connector URL </ControlLabel>
         <InputGroup>
-          <FormControl
+          {/* <FormControl
             id="address-input"
             type="text"
             label="WDC URL"
@@ -50,10 +68,26 @@ class AddressBar extends Component {
             onChange={this.handleAddressBarUrlInput}
           />
           <DropdownButton
-            id="most-recent-urls"
+            id="most-recent-urls-custom"
             title="Recent"
             componentClass={InputGroup.Button}
             onSelect={this.handleAddressBarUrlSelect}
+            pullRight
+          >
+            {menuItems}
+          </DropdownButton> */}
+          <FormControl
+            id="address-input"
+            type="text"
+            label="WDC URL"
+            value={this.props.apiUrl}
+            onChange={this.handleApiUrlInput}
+          />
+          <DropdownButton
+            id="most-recent-urls-custom"
+            title="Recent"
+            componentClass={InputGroup.Button}
+            onSelect={this.handleApiUrlSelect}
             pullRight
           >
             {menuItems}
@@ -68,6 +102,8 @@ AddressBar.prototypes = {
   addressBarUrl: PropTypes.string.isRequired,
   mostRecentUrl: PropTypes.arrayOf(PropTypes.string).isRequired,
   setAddressBarUrl: PropTypes.func.isRequired,
+  apiUrl: PropTypes.string.isRequired,
+  setApiUrl: PropTypes.string.isRequired
 };
 
 export default AddressBar;

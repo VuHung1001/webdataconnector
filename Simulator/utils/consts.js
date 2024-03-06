@@ -50,14 +50,32 @@ export const defaultFilterInfo = {
 export const defaultShowAdvanced = Cookie.getJSON('showAdvanced') || false;
 
 export const samples = [
+  '../Examples/html/demo.html',
   '../Examples/html/earthquakeUSGS.html',
   '../Examples/html/earthquakeMultitable.html',
   '../Examples/html/earthquakeMultilingual.html',
   '../Examples/html/IncrementalRefreshConnector.html',
   '../Examples/html/JoinFilteringExample.html',
 ];
+export const apiUrls = [
+  'https://my-json-server.typicode.com/typicode/demo/db',
+  'http://10.8.56.121:1997/phutai/get-phutai-mien-IAH',
+  'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-30P',
+  'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-5P',
+  'http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH',
+  'http://10.8.56.121:1997/baocaochuky/get-rooftop-mien-IAH',
+  'http://10.8.56.121:1997/baocaochuky/get-muatq-IAH',
+  'http://10.8.56.121:1997/baocaochuky/get-sgncdt-thoigiannhanca',
+  'http://10.8.56.121:1997/baocaochuky/get-sosanh-laplich-dah-iah',
+  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-smhp',
+  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-bot',
+  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-ngoaitt',
+  'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-IAH',
+  'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-SCADA-48CK',
+];
 
-export const defaultMostRecentUrls = Cookie.getJSON('mostRecentUrls') || [...samples];
+// export const defaultMostRecentUrls = Cookie.getJSON('mostRecentUrls') || [...samples];
+export const defaultMostRecentUrls = [...samples];
 
 // if a src query was specified, use it, else use the first MRU
 // use a src query if one exists
@@ -65,6 +83,7 @@ const srcQuery = typeof location !== 'undefined' ?
   queryString.parse(location.search.slice(1)).src : null;
 
 export const defaultUrl = srcQuery || [...defaultMostRecentUrls][0];
+export const defaultApi = apiUrls[0];
 
 export const WINDOW_PROPS = 'height=500,width=800';
 
@@ -86,6 +105,8 @@ export const defaultState = {
   simulatorWindow: null,
   tables: {},
   standardConnections: [],
+  apiUrl: defaultApi,
+  apiUrls: apiUrls
 };
 
 export const visOptions = {
