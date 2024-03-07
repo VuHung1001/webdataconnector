@@ -39,6 +39,10 @@ export default handleActions({
     ({ ...state, mostRecentUrls: action.payload }),
   SET_API_URLS: (state, action) =>
     ({ ...state, apiUrls: action.payload }),
+  SET_IFRAME_DOM: (state, action) =>
+    ({ ...state, iframeDOM: action.payload }),
+  SET_API_PARAMETERS: (state, action) =>
+    ({ ...state, apiParameters: action.payload }),
   SET_WDC_SHOULD_FETCH_ALL_TABLES: (state, action) =>
     ({ ...state, wdcShouldFetchAllTables: action.payload }),
   SET_CURRENT_PHASE: (state, action) =>

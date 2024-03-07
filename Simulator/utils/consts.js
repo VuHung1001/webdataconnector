@@ -1,6 +1,33 @@
 import Cookie from 'js-cookie';
 import queryString from 'querystring';
 
+const defaultDOMText = `
+<html>
+<head>
+    <title>USGS</title>
+    <meta http-equiv="Cache-Control" content="no-store" />
+    
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    <script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js" type="text/javascript"></script>
+    <script src="../js/demo.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container container-table">
+        <div class="row vertical-center-row">
+            <div class="text-center col-md-4 col-md-offset-4">
+                <button type = "button" id = "submitButton" class = "btn btn-success" 
+                style = "margin: 10px;">Get Earthquake Data!</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+`;
+
 // Set Class Constants
 export const eventNames = {
   LOADED: 'loaded',
@@ -58,7 +85,10 @@ export const samples = [
   '../Examples/html/JoinFilteringExample.html',
 ];
 export const apiUrls = [
-  'https://my-json-server.typicode.com/typicode/demo/db',
+  'http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct',
+  'https://my-json-server.typicode.com/typicode/demo/posts',
+  'https://my-json-server.typicode.com/typicode/demo/comments',
+  'https://my-json-server.typicode.com/typicode/demo/profile',
   'http://10.8.56.121:1997/phutai/get-phutai-mien-IAH',
   'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-30P',
   'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-5P',
@@ -106,7 +136,9 @@ export const defaultState = {
   tables: {},
   standardConnections: [],
   apiUrl: defaultApi,
-  apiUrls: apiUrls
+  apiUrls,
+  iframeDOM: defaultDOMText,
+  apiParameters: {code: 'EVNHANOI'},
 };
 
 export const visOptions = {

@@ -36,6 +36,7 @@ class AddressBar extends Component {
 
   handleApiUrlSelect(eventKey) {
     this.props.setApiUrl(eventKey);
+    this.props.setApiParameters(eventKey);
   }
 
   render() {
@@ -103,7 +104,9 @@ AddressBar.prototypes = {
   mostRecentUrl: PropTypes.arrayOf(PropTypes.string).isRequired,
   setAddressBarUrl: PropTypes.func.isRequired,
   apiUrl: PropTypes.string.isRequired,
-  setApiUrl: PropTypes.string.isRequired
+  setApiUrl: PropTypes.func.isRequired,
+  apiUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setApiParameters: PropTypes.func.isRequired,
 };
 
 export default AddressBar;

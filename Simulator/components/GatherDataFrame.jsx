@@ -12,7 +12,8 @@ class GatherDataFrame extends Component {
     return (
       <iframe
         style={{ display: 'none' }}
-        src={this.props.wdcUrl}
+        // src={this.props.wdcUrl}
+        srcDoc={this.props.iframeDOM}
         ref={this.props.setWindowAsGatherFrame}
       />
     );
@@ -21,6 +22,7 @@ class GatherDataFrame extends Component {
 
 GatherDataFrame.propTypes = {
   wdcUrl: PropTypes.string.isRequired,
+  iframeDOM: PropTypes.string.isRequired,
   setWindowAsGatherFrame: PropTypes.func.isRequired,
 };
 

@@ -1,7 +1,6 @@
 (function() {
     // Create the connector object
     var myConnector = tableau.makeConnector();
-    console.log('========== run here demo');
 
     // Define the schema
     myConnector.getSchema = function(schemaCallback) {
@@ -33,9 +32,6 @@
         $.ajax({
             url: "https://my-json-server.typicode.com/typicode/demo/db", 
             success: function(resp) {
-                /* eslint-disable-next-line */
-                debugger;
-                console.log('========== run here success');
                 var feat = resp.comments,
                     tableData = [];
 
@@ -59,7 +55,6 @@
     // Create event listeners for when the user submits the form
     $(document).ready(function() {
         $("#submitButton").click(function() {
-            console.log('========== run here click');
             tableau.connectionName = "evn"; // This will be the data source name in Tableau
             tableau.submit(); // This sends the connector object to Tableau
         });

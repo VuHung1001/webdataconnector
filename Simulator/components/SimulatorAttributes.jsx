@@ -18,11 +18,18 @@ class SimulatorAttributes extends Component {
   constructor(props) {
     super(props);
     this.handleAttrChange = this.handleAttrChange.bind(this);
+    this.handleParamChange = this.handleParamChange.bind(this);
+    this.parameters = this.props.apiParameters;
+    console.log('========== this.parameters ', this.parameters);
   }
 
   handleAttrChange(e) {
     const newAttrs = { ...this.props.wdcAttrs, [e.target.id]: e.target.value };
     this.props.setWdcAttrs(newAttrs);
+  }
+
+  handleParamChange(e, param) {
+    this.props.setApiParameters({ ...this.props.apiParameters, [param]: e.target.value });
   }
 
   render() {
@@ -45,16 +52,20 @@ class SimulatorAttributes extends Component {
     return (
       <div className="data-gather-properties">
         <FormGroup>
-          <PageHeader> Web Data Connector Properties </PageHeader>
-          <ControlLabel> Connection Name </ControlLabel>
-          <FormControl
-            type="text"
-            disabled={this.props.disabled}
-            id="connectionName"
-            value={this.props.wdcAttrs.connectionName}
-            onChange={this.handleAttrChange}
-          />
-          <ControlLabel> Connection Data </ControlLabel>
+          <PageHeader> Parameters </PageHeader>
+          {this.parameters && Object.keys(this.parameters).forEach((param) => (
+            <div key={param}>
+              <ControlLabel> {param} </ControlLabel>
+              <FormControl
+                type="text"
+                disabled={this.props.disabled}
+                id={param}
+                value={this.parameters[param]}
+                onChange={(event) => this.handleParamChange(event, param)}
+              />
+            </div>
+          ))}
+          {/* <ControlLabel> Connection Data </ControlLabel>
           <FormControl
             type="textarea"
             disabled={this.props.disabled}
@@ -159,7 +170,7 @@ class SimulatorAttributes extends Component {
               </FormControl>
             </div>
             : null
-          }
+          } */}
         </FormGroup>
       </div>
     );
@@ -179,6 +190,8 @@ SimulatorAttributes.propTypes = {
     locale: PropTypes.string.isRequired,
   }).isRequired,
   setWdcAttrs: PropTypes.func.isRequired,
+  apiParameters: PropTypes.object.isRequired,
+  setApiParameters: PropTypes.func.isRequired,
 };
 
 export default SimulatorAttributes;

@@ -60,6 +60,15 @@ class App extends Component {
       dispatch(simulatorActions.setAddressBarUrl(url));
     this.setApiUrl = (url) =>
       dispatch(simulatorActions.setApiUrl(url));
+    this.setApiParameters = (urlOrObject) => {
+      if (typeof urlOrObject === 'string') {
+        dispatch(simulatorActions.setApiParameters(
+          simulatorActions.getDefaultParametersForApiUrl(url)
+        ));
+      } else if (typeof urlOrObject === 'object') {
+        dispatch(simulatorActions.setApiParameters(urlOrObject));
+      }
+    }
     this.setWdcShouldFetchAllTables = (should) =>
       dispatch(simulatorActions.setWdcShouldFetchAllTables(should));
     this.setWdcAttrs = (attrs) =>
@@ -129,8 +138,9 @@ class App extends Component {
               mostRecentUrls={this.props.mostRecentUrls}
               setAddressBarUrl={this.setAddressBarUrl}
               apiUrl={this.props.apiUrl}
-              setApiUrl={this.props.setApiUrl}
+              setApiUrl={this.setApiUrl}
               apiUrls={this.props.apiUrls}
+              setApiParameters={this.setApiParameters}
             />
           </Col>
           <Col md={6} className="run-connector">
@@ -152,6 +162,8 @@ class App extends Component {
               showAdvanced={this.props.showAdvanced}
               wdcAttrs={this.props.wdcAttrs}
               setWdcAttrs={this.setWdcAttrs}
+              apiParameters={this.props.apiParameters}
+              setApiParameters={this.setApiParameters}
             />
           </Col>
           {this.props.showAdvanced ?
@@ -198,6 +210,7 @@ class App extends Component {
           {this.props.shouldHaveGatherDataFrame ?
             <GatherDataFrame
               wdcUrl={this.props.wdcUrl}
+              iframeDOM={this.props.iframeDOM}
               setWindowAsGatherFrame={this.setWindowAsGatherFrame}
             />
             : null

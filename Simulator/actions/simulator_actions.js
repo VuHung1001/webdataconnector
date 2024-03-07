@@ -15,10 +15,12 @@ export const setWdcAttrs = createAction('SET_WDC_ATTRS');
 export const setFilterInfo = createAction('SET_FILTER_INFO');
 export const setActiveJoinFilter = createAction('SET_ACTIVE_JOIN_FILTER');
 export const setAddressBarUrl = createAction('SET_ADDRESS_BAR_URL');
-export const setApiUrl = createAction('SET_API_BAR_URL');
+export const setApiUrl = createAction('SET_API_URL');
 export const setWdcUrl = createAction('SET_WDC_URL');
 export const setMostRecentUrls = createAction('SET_MOST_RECENT_URLS');
 export const setApiUrls = createAction('SET_API_URLS');
+export const setIframeDOM = createAction('SET_IFRAME_DOM');
+export const setApiParameters = createAction('SET_API_PARAMETERS');
 
 // Phase Actions
 export const setCurrentPhase = createAction('SET_CURRENT_PHASE');
@@ -67,8 +69,6 @@ export const resetStandardConnections = createAction('RESET_STANDARD_CONNECTIONS
 // Phase Control Thunks
 export function startConnector(phase) {
   return (dispatch) => {
-    /* eslint-disable-next-line */
-    // debugger;
     // Clean up simulator and get ready for starting connector
     dispatch(resetTables());
     dispatch(resetStandardConnections());
@@ -99,8 +99,10 @@ export function setWindowAsExternal() {
   return (dispatch, getState) => {
     // const { wdcUrl } = getState();
     // const simulatorWindow = window.open(wdcUrl, 'wdc', consts.WINDOW_PROPS);
-    const simulatorWindow = window.open('../Examples/html/demo.html', 'wdc', consts.WINDOW_PROPS);
+    const simulatorWindow = window.open('', 'wdc', consts.WINDOW_PROPS);
+    const { apiUrl, apiParameters } = getState();
     dispatch(setSimulatorWindow(simulatorWindow));
+    dispatch(setIframeDOM(getDOMText(apiUrl, apiParameters)));
     dispatch(appendJSToNewWindow());
   };
 }
@@ -161,13 +163,13 @@ export function commitUrl() {
 
 export function appendJSToNewWindow() {
   return (_, getState) => {
-    const { simulatorWindow, wdcUrl } = getState();
+    const { simulatorWindow, apiUrl } = getState();
     simulatorWindow.document.open();
-    simulatorWindow.document.writeln(`<html><head><title>USGS</title> <meta http-equiv="Cache-Control" content="no-store"/> <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script><script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js" type="text/javascript"></script></head><body><div class="container container-table"><div class="row vertical-center-row"><div class="text-center col-md-4 col-md-offset-4"><button type="button" id="submitButton" class="btn btn-success" style="margin: 10px;">Get Earthquake Data!</button></div></div></div><script>(function(){var myConnector=tableau.makeConnector();console.log('========== run here demo');myConnector.getSchema=function(schemaCallback){var cols=[{id:"id",alias:"ten nha may",dataType:tableau.dataTypeEnum.string},{id:"body",alias:"ma nha may",dataType:tableau.dataTypeEnum.string},{id:"postId",alias:"ten tat may",dataType:tableau.dataTypeEnum.string}];var tableSchema={id:"earthquakeFeed",alias:"Earthquakes with magnitude greater than 4.5 in the last seven days",columns:cols};schemaCallback([tableSchema])};myConnector.getData=function(table,doneCallback){$.ajax({url:"https://my-json-server.typicode.com/typicode/demo/db",success:function(resp){console.log('========== run here success');var feat=resp.comments,tableData=[];for(var i=0,len=feat.length;i<len;i++){tableData.push({"id":feat[i].id,"body":feat[i].body,"postId":feat[i].postId})}table.appendRows(tableData);doneCallback()}})};tableau.registerConnector(myConnector);$(document).ready(function(){$("#submitButton").click(function(){console.log('========== run here click');tableau.connectionName="evn";tableau.submit();})})})();</script></body></html>`);
+    simulatorWindow.document.writeln(getDOMText(apiUrl, apiParameters));
     simulatorWindow.document.close();
     // simulatorWindow.onload = function(e) {
         // setTimeout(() => {
-          // (fetchUrl.bind(simulatorWindow))(wdcUrl);
+          // (fetchUrl.bind(simulatorWindow))(apiUrl);
         // },5000);
     // };
   }
@@ -181,21 +183,18 @@ export function fetchUrl(wdcUrl) {
     myConnector.getSchema = function(schemaCallback) {
         let cols = [{
             id: "id",
-            alias: "ten nha may",
             dataType: this.tableau.dataTypeEnum.string
         }, {
             id: "body",
-            alias: "ma nha may",
             dataType: this.tableau.dataTypeEnum.string
         }, {
             id: "postId",
-            alias: "ten tat may",
             dataType: this.tableau.dataTypeEnum.string
         }];
 
         let tableSchema = {
             id: "evn",
-            alias: "Các nhà máy EVN",
+            alias: "EVN",
             columns: cols
         };
 
@@ -210,16 +209,15 @@ export function fetchUrl(wdcUrl) {
                 'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFQ08tRFNUVCIsImp0aSI6IjZhZjQ4OTRjLTZkODktNDYyMS1iY2IyLWViNWU1OTBhZTliOCIsImlhdCI6IjMvNS8yMDI0IDExOjIyOjQzIEFNIiwiSUQiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiYWRtaW5AZ21haWwuY29tNTQiLCJuYmYiOjE3MDk2Mzc3NjMsImV4cCI6MTcwOTcyNDE2MywiaXNzIjoiRWNvSVQiLCJhdWQiOiJFVk4ifQ.aJtO2fyuB7-iu940Xd2wmxbvua7MQsajz7-P4SCxE-8'
             },
             success: function(resp) {
-              console.log('========== resp ', resp);
-                let feat = resp.data.comments,
+                let data = resp.data.comments,
                     tableData = [];
 
                 // Iterate over the JSON object
-                for (let i = 0, len = feat.length; i < len; i++) {
+                for (let i = 0, len = data.length; i < len; i++) {
                     tableData.push({
-                        "tenNm": feat[i].id,
-                        "maNm": feat[i].body,
-                        "tentatNm": feat[i].postId
+                        "tenNm": data[i].id,
+                        "maNm": data[i].body,
+                        "tentatNm": data[i].postId
                     });
                 }
 
@@ -237,4 +235,205 @@ export function fetchUrl(wdcUrl) {
         this.tableau.submit(); // This sends the connector object to Tableau
       }).bind(this);
     }
+}
+
+export function getDefaultParametersForApiUrl (url) {
+  switch (url) {
+    case 'http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct':
+      return {
+        code: 'EVNHANOI'
+      };
+  
+    default:
+      return null;
+  }
+}
+
+function getPropertiesForResponse (url) {
+  switch (url) {
+    case "http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct?code=EVNHANOI":
+      return ["id", "tenNm", "maNm", "tentatNm", "tennhamay", "checkPM"];
+
+    case "https://my-json-server.typicode.com/typicode/demo/posts":
+      return ["id", "title"];
+  
+    case "https://my-json-server.typicode.com/typicode/demo/profile":
+      return ["name"];
+
+    case "https://my-json-server.typicode.com/typicode/demo/comments":
+      return ["id", "body", "postId"]
+
+    default:
+      return [];
+  }
+}
+
+function getHeadersForApiUrl (url) {
+  switch (url) {
+    case 'http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct?code=EVNHANOI':
+      return {
+        authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFQ08tRFNUVCIsImp0aSI6ImU0NzdmOTYyLTRlYmItNGIxMS1hYmRlLWU3YmVlOWIwZTZiMiIsImlhdCI6IjMvNy8yMDI0IDg6NTI6MDEgQU0iLCJJRCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBnbWFpbC5jb201NCIsIm5iZiI6MTcwOTgwMTUyMSwiZXhwIjoxNzA5ODg3OTIxLCJpc3MiOiJFY29JVCIsImF1ZCI6IkVWTiJ9.eszt2S_Guv3jPjMzWf5VcBbWlkZopwVeOt9mSqLtuQU'
+      };
+    
+    default:
+      return null;
+  }
+}
+
+function getResponseProperty (url) {
+  switch (url) {
+    case 'http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct?code=EVNHANOI':
+      return 'data';    
+  
+    default:
+      return '';
+  }
+}
+
+function getParametersText (parameters) {
+  let paramText = '';
+  if (parameters && typeof parameters === 'string') {
+    for (const param in parameters) {
+      paramText += `&${param}=${parameters[param]}`
+    }
+  }
+  paramText[0] = '?';
+  return paramText;
+}
+
+export function getDOMText(url, parameters) {
+  const properties = getPropertiesForResponse(url);
+  const headers = getHeadersForApiUrl(url);
+  const responseProperty = getResponseProperty(url);
+  const paramText = getParametersText(parameters);
+
+  let cols = `[{
+      id: "id",
+      dataType: tableau.dataTypeEnum.string
+  }, {
+      id: "body",
+      dataType: tableau.dataTypeEnum.string
+  }, {
+      id: "postId",
+      dataType: tableau.dataTypeEnum.string
+  }]`;
+  let tableRow = `
+    "id": data[i].id,
+    "body": data[i].body,
+    "postId": data[i].postId  
+  `;
+  let headerText = '';
+
+  if (properties && properties.length) {
+    cols = '[';
+    tableRow = '';
+    properties.forEach((prop) => {
+      cols += `{
+        id: "${prop}",
+        dataType: tableau.dataTypeEnum.string,
+      },`;
+      tableRow += `"${prop}": data[i].${prop},`;
+    });
+    cols += ']';
+  }
+
+  if (headers) {
+    for (const property in headers) {
+      headerText += `"${[property+'']}": "${headers[property]}",`
+    }
+  }
+
+  return `
+  <html>
+  <head>
+      <title>USGS</title>
+      <meta http-equiv="Cache-Control" content="no-store" />
+      
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+      
+      <script src="https://connectors.tableau.com/libs/tableauwdc-2.3.latest.js" type="text/javascript"></script>
+  </head>
+  
+  <body>
+      <div class="container container-table">
+          <div class="row vertical-center-row">
+              <div class="text-center col-md-4 col-md-offset-4">
+                  <button type = "button" id = "submitButton" class = "btn btn-success" style = "margin: 10px;">Get Earthquake Data!</button>
+              </div>
+          </div>
+      </div>
+      
+      <script>
+  (function() {
+      // Create the connector object
+      var myConnector = tableau.makeConnector();
+  
+      // Define the schema
+      myConnector.getSchema = function(schemaCallback) {
+          var cols = ${cols}
+  
+          var tableSchema = {
+              id: "evn",
+              alias: "EVN",
+              columns: cols
+          };
+  
+          schemaCallback([tableSchema]);
+      };
+  
+      // Download the data
+      myConnector.getData = function(table, doneCallback) {
+          $.ajax({
+              url: "${url + paramText}", 
+              ${headerText 
+                ? `headers: {
+                  ${headerText}
+                },`
+                : ''
+              }
+              success: function(resp) {
+                  /* eslint-disable-next-line */
+                  console.log('========== resp ', resp);
+                  /* eslint-disable-next-line */
+                  debugger;
+                  var data = ${responseProperty ? `resp.${responseProperty}` : 'resp'},
+                      tableData = [];
+  
+                  // Iterate over the JSON object
+                  if (Array.isArray(data)) {
+                    for (var i = 0, len = data.length; i < len; i++) {
+                        tableData.push({
+                          ${tableRow}
+                        });
+                    }
+                  } else if (typeof data === 'object') {
+                    for (const property in data) {
+                      tableData.push({
+                        [property+'']: data[property]
+                      });
+                    }
+                  }
+  
+                  table.appendRows(tableData);
+                  doneCallback();
+              }
+          });
+      };
+  
+      tableau.registerConnector(myConnector);
+  
+      // Create event listeners for when the user submits the form
+      $(document).ready(function() {
+          $("#submitButton").click(function() {
+              tableau.connectionName = "evn"; // This will be the data source name in Tableau
+              tableau.submit(); // This sends the connector object to Tableau
+          });
+      });
+  })();
+      </script>
+  </body>
+  </html>  
+  `;
 }
