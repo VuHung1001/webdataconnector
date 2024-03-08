@@ -138,7 +138,7 @@ export const defaultState = {
   apiUrl: defaultApi,
   apiUrls,
   iframeDOM: defaultDOMText,
-  apiParameters: {code: 'EVNHANOI'},
+  apiParameters: { code: 'EVNHANOI' },
 };
 
 export const visOptions = {

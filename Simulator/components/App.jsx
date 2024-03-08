@@ -28,6 +28,7 @@ import StandardConnections from './StandardConnections';
 
 // Utilities
 import * as consts from '../utils/consts';
+import { getDefaultParametersForApiUrl } from '../utils/simulator_actions_utils';
 
 //----------------------App---------------------//
 // Main Component which is provided the state of
@@ -63,12 +64,12 @@ class App extends Component {
     this.setApiParameters = (urlOrObject) => {
       if (typeof urlOrObject === 'string') {
         dispatch(simulatorActions.setApiParameters(
-          simulatorActions.getDefaultParametersForApiUrl(url)
+          getDefaultParametersForApiUrl(urlOrObject)
         ));
       } else if (typeof urlOrObject === 'object') {
         dispatch(simulatorActions.setApiParameters(urlOrObject));
       }
-    }
+    };
     this.setWdcShouldFetchAllTables = (should) =>
       dispatch(simulatorActions.setWdcShouldFetchAllTables(should));
     this.setWdcAttrs = (attrs) =>

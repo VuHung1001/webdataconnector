@@ -86,7 +86,7 @@ class AddressBar extends Component {
           />
           <DropdownButton
             id="most-recent-urls-custom"
-            title="Recent"
+            title="API URLS"
             componentClass={InputGroup.Button}
             onSelect={this.handleApiUrlSelect}
             pullRight

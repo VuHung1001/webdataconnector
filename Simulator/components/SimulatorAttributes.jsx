@@ -1,12 +1,14 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup,
   FormControl,
   ControlLabel,
   PageHeader,
-  OverlayTrigger,
-  Popover,
-  Glyphicon } from 'react-bootstrap';
+  // OverlayTrigger,
+  // Popover,
+  // Glyphicon
+} from 'react-bootstrap';
 
 //----------------------Simulator Attributes---------------------//
 // Component which contains the UI element necessary to set the
@@ -19,8 +21,6 @@ class SimulatorAttributes extends Component {
     super(props);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleParamChange = this.handleParamChange.bind(this);
-    this.parameters = this.props.apiParameters;
-    console.log('========== this.parameters ', this.parameters);
   }
 
   handleAttrChange(e) {
@@ -33,38 +33,39 @@ class SimulatorAttributes extends Component {
   }
 
   render() {
-    const tooltip = (
-      <Popover
-        id="tooltip"
-        title="Platform Properties"
-      >
-        These are properties normally given to a web data connector by the Tableau platform itself.
-        They can be helpful for advanced users who need to test authentication, localization, or
-        across versions of the Tableau platform. You can set values through these inputs and then
-        access the values in your WDC through the tableau object. See the WDC&nbsp;
-        <a href="http://tableau.github.io/webdataconnector/ref/api_ref.html#webdataconnectorapi.tableau" target="_blank">
-          documentation
-        </a>
-        &nbsp;for more details
-      </Popover>
-    );
+    // const tooltip = (
+    //   <Popover
+    //     id="tooltip"
+    //     title="Platform Properties"
+    //   >
+    //     These are properties normally given to a web data connector by the Tableau platform itself.
+    //     They can be helpful for advanced users who need to test authentication, localization, or
+    //     across versions of the Tableau platform. You can set values through these inputs and then
+    //     access the values in your WDC through the tableau object. See the WDC&nbsp;
+    //     <a href="http://tableau.github.io/webdataconnector/ref/api_ref.html#webdataconnectorapi.tableau" target="_blank">
+    //       documentation
+    //     </a>
+    //     &nbsp;for more details
+    //   </Popover>
+    // );
 
     return (
       <div className="data-gather-properties">
         <FormGroup>
           <PageHeader> Parameters </PageHeader>
-          {this.parameters && Object.keys(this.parameters).forEach((param) => (
+          {this.props.apiParameters && Object.keys(this.props.apiParameters).map((param) => (
             <div key={param}>
-              <ControlLabel> {param} </ControlLabel>
+              <ControlLabel> {param} {param === 'chuky' && '(1 - 48)'} </ControlLabel>
               <FormControl
                 type="text"
                 disabled={this.props.disabled}
                 id={param}
-                value={this.parameters[param]}
+                value={this.props.apiParameters[param]}
                 onChange={(event) => this.handleParamChange(event, param)}
               />
             </div>
           ))}
+          {/* <PageHeader> Login for Auth </PageHeader> */}
           {/* <ControlLabel> Connection Data </ControlLabel>
           <FormControl
             type="textarea"
@@ -72,8 +73,8 @@ class SimulatorAttributes extends Component {
             id="connectionData"
             value={this.props.wdcAttrs.connectionData}
             onChange={this.handleAttrChange}
-          />
-          <ControlLabel> Username </ControlLabel>
+          /> */}
+          {/* <ControlLabel> Username </ControlLabel>
           <FormControl
             type="text"
             disabled={this.props.disabled}
@@ -83,21 +84,21 @@ class SimulatorAttributes extends Component {
           />
           <ControlLabel> Password </ControlLabel>
           <FormControl
-            type="password"
+            type="text"
             disabled={this.props.disabled}
             id="password"
             value={this.props.wdcAttrs.password}
             onChange={this.handleAttrChange}
-          />
-          <ControlLabel> Username Alias </ControlLabel>
+          /> */}
+          {/* <ControlLabel> Username Alias </ControlLabel>
           <FormControl
             type="text"
             disabled={this.props.disabled}
             id="usernameAlias"
             value={this.props.wdcAttrs.usernameAlias}
             onChange={this.handleAttrChange}
-          />
-          {this.props.showAdvanced ?
+          /> */}
+          {/* {this.props.showAdvanced ?
             <div className="advanced">
               <PageHeader>
                 Tableau Platform Properties
