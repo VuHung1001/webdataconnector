@@ -70,7 +70,7 @@ export const resetStandardConnections = createAction('RESET_STANDARD_CONNECTIONS
 
 // Phase Control Thunks
 export function startConnector(phase) {
-  return async (dispatch) => {
+  return (dispatch) => {
     // Clean up simulator and get ready for starting connector
     // let authToken = '';
     dispatch(resetTables());

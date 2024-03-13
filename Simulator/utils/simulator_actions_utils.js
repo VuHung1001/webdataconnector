@@ -6,9 +6,9 @@ export function getDefaultParametersForApiUrl(url) {
                 code: "EVNHANOI",
             };
 
-        case "http://10.8.56.121:1997/phutai/get-phutai-mien-IAH":
-        case "http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-30P":
-        case "http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-5P":
+        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-IAH":
+        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-30P":
+        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-5P":
         case "http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH":
         case "http://10.8.56.121:1997/baocaochuky/get-rooftop-mien-IAH":
         case "http://10.8.56.121:1997/baocaochuky/get-muatq-IAH":
@@ -16,12 +16,14 @@ export function getDefaultParametersForApiUrl(url) {
         case "http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-IAH":
         case "http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-SCADA-48CK":
             return {
-                dateTime: "11/06/2023",
+                tu_ngay: "01/01/2024",
+                den_ngay: new Date().toLocaleDateString()
             };
 
         case "http://10.8.56.121:1997/baocaochuky/get-sosanh-laplich-dah-iah":
             return {
-                dateTime: "11/06/2023",
+                tu_ngay: "01/01/2024",
+                den_ngay: new Date().toLocaleDateString(),
                 chuky: 1,
             };
 
@@ -44,11 +46,11 @@ function getPropertiesForResponse(url) {
         case "https://my-json-server.typicode.com/typicode/demo/comments":
             return ["id", "body", "postId"];
 
-        case 'http://10.8.56.121:1997/phutai/get-phutai-mien-IAH':
+        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-IAH':
             return ["NGAY", "TEN_NODE", "ID_NODE", "H1"];
 
-        case 'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-30P':
-        case 'http://10.8.56.121:1997/phutai/get-phutai-mien-SCADA-5P':
+        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-30P':
+        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-5P':
             return ["TEN_NODE", "ID_NODE", "NGAY", "GIO", "PHUT", "CHUKY", "PHUTAI_KNN", "PHUTAI_NGUONNHO", "PHUTAI_MT_MAINHA", "PHUTAI_XNK"];
 
         case 'http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH':
@@ -135,11 +137,21 @@ function getResponsePropertyText(properties) {
         cols = "[";
         tableRow = "";
         properties.forEach((prop) => {
-            cols += `{
-          id: "${prop}",
-          dataType: tableau.dataTypeEnum.string,
-        },`;
-            tableRow += `"${prop}": data[i].${prop},`;
+            if (prop === 'H1') {
+                for (let i = 1; i <= 48; i++) {
+                    cols += `{
+                        id: "H${i}",
+                        dataType: tableau.dataTypeEnum.string,
+                    },`;
+                    tableRow += `"H${i}": data[i].H${i},`;
+                }
+            } else {
+                cols += `{
+                    id: "${prop}",
+                    dataType: tableau.dataTypeEnum.string,
+                },`;
+                tableRow += `"${prop}": data[i].${prop},`;
+            }
         });
         cols += "]";
     }
@@ -209,13 +221,12 @@ export function getDOMText(url, parameters) {
         myConnector.getData = function(table, doneCallback) {
             $.ajax({
                 url: "${url + paramText}", 
-                ${
-                    headerText
-                        ? `headers: {
-                    ${headerText}
-                  },`
-                        : ""
-                }
+                headers: {
+                    ${headerText
+                        ? headerText
+                        : ""}
+                    'Access-Control-Allow-Origin': '*'
+                },
                 success: function(resp) {
                     var data = ${
                         responseProperty ? `resp.${responseProperty}` : "resp"
