@@ -22,7 +22,11 @@ module.exports = {
                   path.resolve(__dirname, "Simulator/reducers"),
                   path.resolve(__dirname, "Simulator/store")
                 ],
-                loader: 'babel-loader'
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015']
+                }                
             }
         ]
     },

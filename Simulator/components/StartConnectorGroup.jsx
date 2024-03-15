@@ -56,12 +56,12 @@ class StartConnectorGroup extends Component {
             : null
           }
         </div>
-        <Checkbox
+        {/* <Checkbox
           checked={this.props.wdcShouldFetchAll}
           onChange={this.handleShouldFetchAllChange}
         >
             Automatically fetch data for all tables
-        </Checkbox>
+        </Checkbox> */}
       </div>
     );
   }

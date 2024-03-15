@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { cleanUrl } from '../utils/misc';
 import * as consts from '../utils/consts';
-import { getDOMText, loginToGetToken } from '../utils/simulator_actions_utils';
+import { download, getDOMText, loginToGetToken, replaceFileForEachAPI } from '../utils/simulator_actions_utils';
 
 // Redux action creator functions
 // more info can be found here:
@@ -170,7 +170,9 @@ export function commitUrl() {
 
 export function appendJSToNewWindow() {
   return (_, getState) => {
-    const { simulatorWindow, iframeDOM } = getState();
+    const { simulatorWindow, iframeDOM, wdcUrl } = getState();
+    // download('demo.html', iframeDOM);
+    replaceFileForEachAPI(wdcUrl, iframeDOM);
     simulatorWindow.document.open();
     simulatorWindow.document.writeln(iframeDOM);
     simulatorWindow.document.close();

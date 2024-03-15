@@ -6,26 +6,26 @@ export function getDefaultParametersForApiUrl(url) {
                 code: "EVNHANOI",
             };
 
-        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-IAH":
-        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-30P":
-        case "http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-5P":
-        case "http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH":
-        case "http://10.8.56.121:1997/baocaochuky/get-rooftop-mien-IAH":
-        case "http://10.8.56.121:1997/baocaochuky/get-muatq-IAH":
-        case "http://10.8.56.121:1997/baocaochuky/get-sgncdt-thoigiannhanca":
-        case "http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-IAH":
-        case "http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-SCADA-48CK":
+        case "http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH":
+        case "http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P":
+        case "http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P":
+        case "http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH":
+        case "http://3.3.251.100:8000/baocaochuky/get-rooftop-mien-IAH":
+        case "http://3.3.251.100:8000/baocaochuky/get-muatq-IAH":
+        case "http://3.3.251.100:8000/baocaochuky/get-sgncdt-thoigiannhanca":
+        case "http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-IAH":
+        case "http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-SCADA-48CK":
+        case "http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah":
             return {
-                tu_ngay: "01/01/2024",
-                den_ngay: new Date().toLocaleDateString()
+                tu_ngay: "03/10/2024",
+                den_ngay: getFormattedDate(new Date())
             };
-
-        case "http://10.8.56.121:1997/baocaochuky/get-sosanh-laplich-dah-iah":
-            return {
-                tu_ngay: "01/01/2024",
-                den_ngay: new Date().toLocaleDateString(),
-                chuky: 1,
-            };
+        // case "http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah":
+        //     return {
+        //         tu_ngay: "03/10/2024",
+        //         den_ngay: getFormattedDate(new Date()),
+        //         chuky: 1,
+        //     };
 
         default:
             return null;
@@ -46,35 +46,35 @@ function getPropertiesForResponse(url) {
         case "https://my-json-server.typicode.com/typicode/demo/comments":
             return ["id", "body", "postId"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-IAH':
+        case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH':
             return ["NGAY", "TEN_NODE", "ID_NODE", "H1"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-30P':
-        case 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-5P':
+        case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P':
+        case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P':
             return ["TEN_NODE", "ID_NODE", "NGAY", "GIO", "PHUT", "CHUKY", "PHUTAI_KNN", "PHUTAI_NGUONNHO", "PHUTAI_MT_MAINHA", "PHUTAI_XNK"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH':
-        case 'http://10.8.56.121:1997/baocaochuky/get-rooftop-mien-IAH':
+        case 'http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH':
+        case 'http://3.3.251.100:8000/baocaochuky/get-rooftop-mien-IAH':
             return ["NGAY", "ID_NODE", "H1"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-muatq-IAH':
+        case 'http://3.3.251.100:8000/baocaochuky/get-muatq-IAH':
             return ["NGAY", "TENTAT_XNK", "H1"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-sgncdt-thoigiannhanca':
+        case 'http://3.3.251.100:8000/baocaochuky/get-sgncdt-thoigiannhanca':
             return ["DDV", "NHANCA", "ID_CATRUC"];
 
-        case 'http://10.8.56.121:1997/baocaochuky/get-sosanh-laplich-dah-iah':
+        case 'http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah':
             return ["TENNHAMAY", "TEN_TM", "ID_TM", "NGAY", "CHUKY", "DAH", "IAH"];
         
-        case 'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-smhp':
-        case 'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-bot':
-        case 'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-ngoaitt':
+        case 'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-smhp':
+        case 'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-bot':
+        case 'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-ngoaitt':
             return ["ID_TM", "ID_NM", "TENNHAMAY", "LOAIHINHTTD"];
         
-        case 'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-IAH':
+        case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-IAH':
             return ["NGAY", "TENNHAMAY", "ID_NM", "TEN_TM", "ID_TM", "H1"];
         
-        case 'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-SCADA-48CK':
+        case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-SCADA-48CK':
             return ["ID_TM", "TENNHAMAY", "TENTOMAY", "H1"];
 
         default:
@@ -87,7 +87,7 @@ function getHeadersForApiUrl(url) {
         case "http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct":
             return {
                 authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFQ08tRFNUVCIsImp0aSI6IjI2YzlkY2VhLWUwZTEtNDMxYy1hYTNlLTQwOTBjODI4ZTA1YyIsImlhdCI6IjMvOC8yMDI0IDE6NTA6MzIgQU0iLCJJRCI6IjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJhZG1pbkBnbWFpbC5jb201NCIsIm5iZiI6MTcwOTg2MjYzMiwiZXhwIjoxNzA5OTQ5MDMyLCJpc3MiOiJFY29JVCIsImF1ZCI6IkVWTiJ9.rqCp6LacCoYZYbQiEyhfGIH210Ig5IMZ5T-EfVkOS9s",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJFQ08tRFNUVCIsImp0aSI6ImRmZmFiMGUyLWQ2NGEtNGI4Ni1hMDAwLWNhYTdhZDE1NzU0YiIsImlhdCI6IjMvMTUvMjAyNCAzOjI2OjMxIEFNIiwiSUQiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZSI6ImFkbWluIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiYWRtaW5AZ21haWwuY29tNTQiLCJuYmYiOjE3MTA0NzMxOTEsImV4cCI6MTcxMDU1OTU5MSwiaXNzIjoiRWNvSVQiLCJhdWQiOiJFVk4ifQ.ryoZGH2BS-yuLTQWiLa9Cj7vVDOEIHStMBX0xXX-xbw",
             };
 
         default:
@@ -112,8 +112,10 @@ function getParametersText(parameters) {
             paramText += `&${param}=${parameters[param]}`;
         }
     }
-    paramText = paramText.replace("&", "?");
-    paramText = paramText.replaceAll("/", "%2F");
+    if (paramText && typeof paramText === 'string') {
+        paramText = paramText.replace("&", "?");
+        // paramText = paramText.replaceAll("/", "%2F");
+    }
     return paramText;
 }
 
@@ -157,6 +159,45 @@ function getResponsePropertyText(properties) {
     }
 
     return { cols, tableRow };
+}
+
+function getFormattedDate(date) {
+    var year = date.getFullYear();
+  
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+    
+    return month + '/' + day + '/' + year;
+}
+
+export function replaceFileForEachAPI(fileUrl, text) {
+    $.ajax({
+        url: "http://localhost:8888/replace-demo-file", 
+        method: "POST",
+        data: JSON.stringify({
+            fileUrl: fileUrl,
+            fileContent: text
+        }),
+        success: function(res) {
+            console.log('========== res ', res);
+        }
+    }); 
+}
+
+export function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+  
+    element.style.display = 'none';
+    document.body.appendChild(element);
+  
+    element.click();
+  
+    document.body.removeChild(element);
 }
 
 export function getDOMText(url, parameters) {
@@ -225,7 +266,7 @@ export function getDOMText(url, parameters) {
                     ${headerText
                         ? headerText
                         : ""}
-                    'Access-Control-Allow-Origin': '*'
+                    // 'Origin': '113.20.126.80'
                 },
                 success: function(resp) {
                     var data = ${

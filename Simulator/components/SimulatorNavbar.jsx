@@ -28,7 +28,7 @@ class SimulatorNavbar extends Component {
         <h2 style={{ display: 'inline', verticalAlign: 'middle' }}>
           Web Data Connector Simulator 2.0
         </h2>
-        <Navbar.Form
+        {/* <Navbar.Form
           style={{ borderStyle: 'none' }}
           pullRight
         >
@@ -40,7 +40,7 @@ class SimulatorNavbar extends Component {
           >
             {this.props.showAdvanced ? 'Hide Advanced' : 'Show Advanced'}
           </Button>
-        </Navbar.Form>
+        </Navbar.Form> */}
       </Navbar>
     );
   }

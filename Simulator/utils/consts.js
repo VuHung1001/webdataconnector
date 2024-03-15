@@ -74,7 +74,8 @@ export const defaultFilterInfo = {
   selectedFK: '',
 };
 
-export const defaultShowAdvanced = Cookie.getJSON('showAdvanced') || false;
+// export const defaultShowAdvanced = Cookie.getJSON('showAdvanced') || false;
+export const defaultShowAdvanced = false;
 
 export const samples = [
   '../Examples/html/demo.html',
@@ -89,19 +90,19 @@ export const apiUrls = [
   'https://my-json-server.typicode.com/typicode/demo/posts',
   'https://my-json-server.typicode.com/typicode/demo/comments',
   'https://my-json-server.typicode.com/typicode/demo/profile',
-  'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-IAH',
-  'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-30P',
-  // 'http://10.8.56.121:1997/baocaochuky/get-phutai-mien-SCADA-5P',
-  'http://10.8.56.121:1997/baocaochuky/get-thuydiennho-mien-IAH',
-  'http://10.8.56.121:1997/baocaochuky/get-rooftop-mien-IAH',
-  'http://10.8.56.121:1997/baocaochuky/get-muatq-IAH',
-  'http://10.8.56.121:1997/baocaochuky/get-sgncdt-thoigiannhanca',
-  'http://10.8.56.121:1997/baocaochuky/get-sosanh-laplich-dah-iah',
-  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-smhp',
-  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-bot',
-  'http://10.8.56.121:1997/baocaochuky/get-danhsach-nhamay-ngoaitt',
-  'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-IAH',
-  'http://10.8.56.121:1997/huydongnguon/get-congsuathuydong-tomay-SCADA-48CK',
+  'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH',
+  'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P',
+  // 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P',
+  'http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH',
+  'http://3.3.251.100:8000/baocaochuky/get-rooftop-mien-IAH',
+  'http://3.3.251.100:8000/baocaochuky/get-muatq-IAH',
+  'http://3.3.251.100:8000/baocaochuky/get-sgncdt-thoigiannhanca',
+  'http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah',
+  'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-smhp',
+  'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-bot',
+  'http://3.3.251.100:8000/baocaochuky/get-danhsach-nhamay-ngoaitt',
+  'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-IAH',
+  'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-SCADA-48CK',
 ];
 
 // export const defaultMostRecentUrls = Cookie.getJSON('mostRecentUrls') || [...samples];
@@ -126,7 +127,7 @@ export const defaultState = {
   wdcUrl: defaultUrl,
   mostRecentUrls: defaultMostRecentUrls,
   showAdvanced: defaultShowAdvanced,
-  wdcShouldFetchAllTables: false,
+  wdcShouldFetchAllTables: true,
   shouldHaveGatherDataFrame: false,
   currentPhase: phases.INTERACTIVE,
   phaseInProgress: false,
