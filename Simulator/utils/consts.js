@@ -86,10 +86,6 @@ export const samples = [
   '../Examples/html/JoinFilteringExample.html',
 ];
 export const apiUrls = [
-  'http://dsevnbackend.ecoit.vn/api/HtNhaMay/getHtNMByTenTatTct',
-  'https://my-json-server.typicode.com/typicode/demo/posts',
-  'https://my-json-server.typicode.com/typicode/demo/comments',
-  'https://my-json-server.typicode.com/typicode/demo/profile',
   'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH',
   'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P',
   // 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P',
