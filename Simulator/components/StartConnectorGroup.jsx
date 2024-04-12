@@ -25,7 +25,7 @@ class StartConnectorGroup extends Component {
             Run Connector
           </PageHeader>
         </div>
-        <div>
+        <div style={{ display: 'flex', gap: '30px' }}>
           <Button
             id="interactive-btn"
             onClick={this.props.startInteractivePhase}
@@ -33,6 +33,13 @@ class StartConnectorGroup extends Component {
             disabled={this.props.isInProgress || this.props.isAddressBarEmpty}
           >
             Start Interactive Phase
+          </Button>
+          <Button
+            id="interactive-btn"
+            onClick={this.props.updateAllFiles}
+            bsStyle="success"
+          >
+            Update All Sample Files
           </Button>
           {this.props.showAdvanced ?
             <Button

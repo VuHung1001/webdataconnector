@@ -147,6 +147,12 @@ function getResponsePropertyText(properties) {
                     },`;
                     tableRow += `"H${i}": data[i].H${i},`;
                 }
+            } else if (prop === 'NGAY') {
+                cols += `{
+                    id: "NGAY",
+                    dataType: tableau.dataTypeEnum.date,
+                },`;
+                tableRow += `"${prop}": data[i].${prop},`;
             } else {
                 cols += `{
                     id: "${prop}",
@@ -161,7 +167,7 @@ function getResponsePropertyText(properties) {
     return { cols, tableRow };
 }
 
-function getFormattedDate(date) {
+export function getFormattedDate(date) {
     var year = date.getFullYear();
   
     var month = (1 + date.getMonth()).toString();

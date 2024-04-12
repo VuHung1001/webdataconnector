@@ -101,6 +101,9 @@ class App extends Component {
       dispatch(simulatorActions.setFilterInfo(filterInfo));
     this.setActiveJoinFilter = (activeFilter) =>
       dispatch(simulatorActions.setActiveJoinFilter(activeFilter));
+    this.updateAllFiles = () => {
+      dispatch(simulatorActions.updateAllSampleFiles());
+    };
   }
 
   render() {
@@ -155,6 +158,7 @@ class App extends Component {
               cancelCurrentPhase={this.cancelCurrentPhase}
               wdcShouldFetchAll={this.props.wdcShouldFetchAllTables}
               setWdcShouldFetchAllTables={this.setWdcShouldFetchAllTables}
+              updateAllFiles={this.updateAllFiles}
             />
           </Col>
           <Col md={6} className="interactive-phase">

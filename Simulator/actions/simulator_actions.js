@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { cleanUrl } from '../utils/misc';
 import * as consts from '../utils/consts';
-import { download, getDOMText, loginToGetToken, replaceFileForEachAPI } from '../utils/simulator_actions_utils';
+import { download, getDOMText, getFormattedDate, loginToGetToken, replaceFileForEachAPI } from '../utils/simulator_actions_utils';
 
 // Redux action creator functions
 // more info can be found here:
@@ -106,8 +106,11 @@ export function setWindowAsExternal() {
   return (dispatch, getState) => {
     // const { wdcUrl } = getState();
     // const simulatorWindow = window.open(wdcUrl, 'wdc', consts.WINDOW_PROPS);
-    const simulatorWindow = window.open('', 'wdc', consts.WINDOW_PROPS);
     const { apiUrl, apiParameters } = getState();
+    const apiIndex = consts.apiUrls.indexOf(apiUrl);
+    const correspondSample = consts.samples[apiIndex];
+    const simulatorWindow = window.open(correspondSample, 'wdc', consts.WINDOW_PROPS);
+    dispatch(setWdcUrl(correspondSample));
     dispatch(setSimulatorWindow(simulatorWindow));
     dispatch(setIframeDOM(getDOMText(apiUrl, apiParameters)));
     dispatch(appendJSToNewWindow());
@@ -162,7 +165,7 @@ export function commitUrl() {
     }
 
     Cookie.set('mostRecentUrls', updatedUrls);
-    dispatch(setWdcUrl(cleanedUrl));
+    // dispatch(setWdcUrl(cleanedUrl));
     dispatch(setAddressBarUrl(cleanedUrl));
     dispatch(setMostRecentUrls(updatedUrls));
   };
@@ -181,5 +184,17 @@ export function appendJSToNewWindow() {
           // (fetchUrl.bind(simulatorWindow))(apiUrl);
         // },5000);
     // };
+  }
+}
+
+export function updateAllSampleFiles() {
+  return (_, getState) => {
+    for (const sample of consts.samples) {
+      const sampleIndex = consts.samples.indexOf(sample);
+      const apiUrl = consts.apiUrls[sampleIndex];
+      const { apiParameters } = getState();
+      const DOMText = getDOMText(apiUrl, apiParameters);
+      replaceFileForEachAPI(sample, DOMText);
+    }
   }
 }

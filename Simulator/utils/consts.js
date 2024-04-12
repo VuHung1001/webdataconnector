@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie';
 import queryString from 'querystring';
+import { getFormattedDate } from './simulator_actions_utils';
 
 const defaultDOMText = `
 <html>
@@ -78,12 +79,24 @@ export const defaultFilterInfo = {
 export const defaultShowAdvanced = false;
 
 export const samples = [
-  '../Examples/html/demo.html',
-  '../Examples/html/earthquakeUSGS.html',
-  '../Examples/html/earthquakeMultitable.html',
-  '../Examples/html/earthquakeMultilingual.html',
-  '../Examples/html/IncrementalRefreshConnector.html',
-  '../Examples/html/JoinFilteringExample.html',
+  '../Examples/html/get-phutai-mien-IAH.html',
+  '../Examples/html/get-phutai-mien-SCADA-30P.html',
+  // '../Examples/html/get-phutai-mien-SCADA-5P.html',
+  '../Examples/html/get-thuydiennho-mien-IAH.html',
+  '../Examples/html/get-rooftop-mien-IAH.html',
+  '../Examples/html/get-muatq-IAH.html',
+  '../Examples/html/get-sgncdt-thoigiannhanca.html',
+  '../Examples/html/get-sosanh-laplich-dah-iah.html',
+  '../Examples/html/get-danhsach-nhamay-smhp.html',
+  '../Examples/html/get-danhsach-nhamay-bot.html',
+  '../Examples/html/get-danhsach-nhamay-ngoaitt.html',
+  '../Examples/html/get-congsuathuydong-tomay-IAH.html',
+  '../Examples/html/get-congsuathuydong-tomay-SCADA-48CK.html',
+  // '../Examples/html/earthquakeUSGS.html',
+  // '../Examples/html/earthquakeMultitable.html',
+  // '../Examples/html/earthquakeMultilingual.html',
+  // '../Examples/html/IncrementalRefreshConnector.html',
+  // '../Examples/html/JoinFilteringExample.html',
 ];
 export const apiUrls = [
   'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH',
@@ -135,7 +148,10 @@ export const defaultState = {
   apiUrl: defaultApi,
   apiUrls,
   iframeDOM: defaultDOMText,
-  apiParameters: { code: 'EVNHANOI' },
+  apiParameters: {
+    tu_ngay: '03/10/2024',
+    den_ngay: getFormattedDate(new Date()),
+  },
 };
 
 export const visOptions = {
