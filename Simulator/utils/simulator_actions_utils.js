@@ -47,7 +47,7 @@ function getPropertiesForResponse(url) {
             return ["id", "body", "postId"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH':
-            return ["NGAY", "TEN_NODE", "ID_NODE", "H1"];
+            return ["NGAY", "TEN_NODE", "ID_NODE", "CHUKY"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P':
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P':
@@ -55,10 +55,10 @@ function getPropertiesForResponse(url) {
 
         case 'http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH':
         case 'http://3.3.251.100:8000/baocaochuky/get-rooftop-mien-IAH':
-            return ["NGAY", "ID_NODE", "H1"];
+            return ["NGAY", "ID_NODE", "CHUKY"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-muatq-IAH':
-            return ["NGAY", "TENTAT_XNK", "H1"];
+            return ["NGAY", "TENTAT_XNK", "CHUKY"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-sgncdt-thoigiannhanca':
             return ["DDV", "NHANCA", "ID_CATRUC"];
@@ -72,10 +72,10 @@ function getPropertiesForResponse(url) {
             return ["ID_TM", "ID_NM", "TENNHAMAY", "LOAIHINHTTD"];
         
         case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-IAH':
-            return ["NGAY", "TENNHAMAY", "ID_NM", "TEN_TM", "ID_TM", "H1"];
+            return ["NGAY", "TENNHAMAY", "ID_NM", "TEN_TM", "ID_TM", "CHUKY"];
         
         case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-SCADA-48CK':
-            return ["ID_TM", "TENNHAMAY", "TENTOMAY", "H1"];
+            return ["ID_TM", "TENNHAMAY", "TENTOMAY", "CHUKY"];
 
         default:
             return [];
