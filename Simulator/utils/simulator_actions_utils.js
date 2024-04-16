@@ -1,3 +1,5 @@
+import { now } from "./consts";
+
 /* eslint-disable */
 export function getDefaultParametersForApiUrl(url) {
     switch (url) {
@@ -18,12 +20,22 @@ export function getDefaultParametersForApiUrl(url) {
         case "http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah":
             return {
                 tu_ngay: "03/10/2024",
-                den_ngay: getFormattedDate(new Date())
+                den_ngay: getFormattedDate(new Date(
+                    now.getFullYear(),
+                    now.getMonth(),
+                    now.getDate() + 1, // the next day to get all time of today, ...
+                    0, 0, 0 // ...at 00:00:00 hours      
+                  )),
             };
         // case "http://3.3.251.100:8000/baocaochuky/get-sosanh-laplich-dah-iah":
         //     return {
         //         tu_ngay: "03/10/2024",
-        //         den_ngay: getFormattedDate(new Date()),
+            // den_ngay: getFormattedDate(new Date(
+            //     now.getFullYear(),
+            //     now.getMonth(),
+            //     now.getDate() + 1, // the next day to get all time of today, ...
+            //     0, 0, 0 // ...at 00:00:00 hours      
+            // )),
         //         chuky: 1,
         //     };
 

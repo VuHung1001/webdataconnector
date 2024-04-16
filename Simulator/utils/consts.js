@@ -127,6 +127,8 @@ export const defaultApi = apiUrls[0];
 
 export const WINDOW_PROPS = 'height=500,width=800';
 
+export const now = new Date();
+
 export const defaultState = {
   // Originally wdcProps, renamed to avoid confusion with component props
   wdcAttrs: defaultWdcAttrs,
@@ -150,7 +152,12 @@ export const defaultState = {
   iframeDOM: defaultDOMText,
   apiParameters: {
     tu_ngay: '03/10/2024',
-    den_ngay: getFormattedDate(new Date()),
+    den_ngay: getFormattedDate(new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1, // the next day to get all time of today, ...
+      0, 0, 0 // ...at 00:00:00 hours      
+    )),
   },
 };
 
