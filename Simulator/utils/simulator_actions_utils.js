@@ -1,4 +1,4 @@
-import { now } from "./consts";
+import { now } from './consts';
 
 /* eslint-disable */
 export function getDefaultParametersForApiUrl(url) {
@@ -59,7 +59,7 @@ function getPropertiesForResponse(url) {
             return ["id", "body", "postId"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH':
-            return ["NGAY", "TEN_NODE", "ID_NODE", "CHUKY"];
+            return ["NGAY", "TEN_NODE", "ID_NODE", "CHUKY", "GIATRI"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-30P':
         case 'http://3.3.251.100:8000/baocaochuky/get-phutai-mien-SCADA-5P':
@@ -67,10 +67,10 @@ function getPropertiesForResponse(url) {
 
         case 'http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH':
         case 'http://3.3.251.100:8000/baocaochuky/get-rooftop-mien-IAH':
-            return ["NGAY", "ID_NODE", "CHUKY"];
+            return ["NGAY", "ID_NODE", "CHUKY", "GIATRI", "TENNHAMAY", "TEN_TM"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-muatq-IAH':
-            return ["NGAY", "TENTAT_XNK", "CHUKY"];
+            return ["NGAY", "TENTAT_XNK", "CHUKY", "GIATRI"];
 
         case 'http://3.3.251.100:8000/baocaochuky/get-sgncdt-thoigiannhanca':
             return ["DDV", "NHANCA", "ID_CATRUC"];
@@ -84,10 +84,10 @@ function getPropertiesForResponse(url) {
             return ["ID_TM", "ID_NM", "TENNHAMAY", "LOAIHINHTTD"];
         
         case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-IAH':
-            return ["NGAY", "TENNHAMAY", "ID_NM", "TEN_TM", "ID_TM", "CHUKY"];
+            return ["NGAY", "TENNHAMAY", "ID_NM", "TEN_TM", "ID_TM", "CHUKY", "GIATRI"];
         
         case 'http://3.3.251.100:8000/baocaochuky/get-congsuathuydong-tomay-SCADA-48CK':
-            return ["ID_TM", "TENNHAMAY", "TENTOMAY", "CHUKY"];
+            return ["ID_TM", "TENNHAMAY", "TENTOMAY", "CHUKY", "GIATRI"];
 
         default:
             return [];
@@ -259,72 +259,112 @@ export function getDOMText(url, parameters) {
         </div>
         
         <script>
-    (function() {
-        // Create the connector object
-        var myConnector = tableau.makeConnector();
-    
-        // Define the schema
-        myConnector.getSchema = function(schemaCallback) {
-            var cols = ${cols}
-    
-            var tableSchema = {
-                id: "evn",
-                alias: "EVN",
-                columns: cols
-            };
-    
-            schemaCallback([tableSchema]);
-        };
-    
-        // Download the data
-        myConnector.getData = function(table, doneCallback) {
-            $.ajax({
-                url: "${url + paramText}", 
-                headers: {
-                    ${headerText
-                        ? headerText
-                        : ""}
-                    // 'Origin': '113.20.126.80'
-                },
-                success: function(resp) {
-                    var data = ${
-                        responseProperty ? `resp.${responseProperty}` : "resp"
+        (function() {
+            // Create the connector object
+            var myConnector = tableau.makeConnector();
+        
+            // Define the schema
+            myConnector.getSchema = function(schemaCallback) {
+                var cols = [{
+                        id: "NGAY",
+                        dataType: tableau.dataTypeEnum.date,
+                    },{
+                        id: "TEN_NODE",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "ID_NODE",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "CHUKY",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "GIATRI-phutai-IAH",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "GIATRI-thuydiennho-IAH",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "TENNHAMAY",
+                        dataType: tableau.dataTypeEnum.string,
+                    },{
+                        id: "TEN_TM",
+                        dataType: tableau.dataTypeEnum.string,
                     },
-                        tableData = [];
-    
-                    // Iterate over the JSON object
-                    if (Array.isArray(data)) {
-                      for (var i = 0, len = data.length; i < len; i++) {
-                          tableData.push({
-                            ${tableRow}
-                          });
-                      }
-                    } else if (typeof data === 'object') {
-                      for (const property in data) {
-                        tableData.push({
-                          [property+'']: data[property]
-                        });
-                      }
-                    }
-    
-                    table.appendRows(tableData);
-                    doneCallback();
-                }
+                ]
+        
+                var tableSchema = {
+                    id: "evn",
+                    alias: "EVN",
+                    columns: cols
+                };
+        
+                schemaCallback([tableSchema]);
+            };
+        
+            // Download the data
+            myConnector.getData = async function(table, doneCallback) {
+                const table1 = [];
+                const table2 = [];
+                await fetch("http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH?tu_ngay=04/15/2024&den_ngay=04/18/2024")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                            for (var i = 0, len = data.length; i < len; i++) {
+                                table1.push({
+                                    "NGAY": data[i].NGAY, "TEN_NODE": data[i].TEN_NODE, "ID_NODE": data[i].ID_NODE, "CHUKY": data[i].CHUKY, "GIATRI-phutai-IAH": data[i].GIATRI,
+                                });
+                            }
+                        } else if (typeof data === 'object') {
+                            for (const property in data) {
+                                table1.push({
+                                    [property + '']: data[property]
+                                });
+                            }
+                        }
+                        // Xử lý dữ liệu ở đây
+                        console.log(table1);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                await fetch("http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH?tu_ngay=04/15/2024&den_ngay=04/18/2024")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                          for (var i = 0, len = data.length; i < len; i++) {
+                              tableData.push({
+                                "NGAY": data[i].NGAY,"ID_NODE": data[i].ID_NODE,"CHUKY": data[i].CHUKY,"GIATRI-thuydiennho-IAH": data[i].GIATRI,"TENNHAMAY": data[i].TENNHAMAY,"TEN_TM": data[i].TEN_TM,
+                              });
+                          }
+                        } else if (typeof data === 'object') {
+                          for (const property in data) {
+                            tableData.push({
+                              [property+'']: data[property]
+                            });
+                          }
+                        }
+                        // Xử lý dữ liệu ở đây
+                        console.log(table2);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });                
+                table.appendRows([...table1, ...table2]);
+                doneCallback();
+            };
+        
+            tableau.registerConnector(myConnector);
+        
+            // Create event listeners for when the user submits the form
+            $(document).ready(function() {
+                // $("#submitButton").click(function() {
+                setTimeout(() => {
+                    tableau.connectionName = "evn"; // This will be the data source name in Tableau
+                    tableau.submit(); // This sends the connector object to Tableau
+                }, 1000);
+                // });
             });
-        };
-    
-        tableau.registerConnector(myConnector);
-    
-        // Create event listeners for when the user submits the form
-        $(document).ready(function() {
-            // $("#submitButton").click(function() {
-            setTimeout(() => {
-                tableau.connectionName = "evn"; // This will be the data source name in Tableau
-                tableau.submit(); // This sends the connector object to Tableau
-            }, 1000);
-            // });
-        });
-    })();
+        })();
         </script>
     </body>
     </html>  

@@ -21,221 +21,112 @@
         </div>
         
         <script>
-    (function() {
-        // Create the connector object
-        var myConnector = tableau.makeConnector();
-    
-        // Define the schema
-        myConnector.getSchema = function(schemaCallback) {
-            var cols = [{
-                    id: "NGAY",
-                    dataType: tableau.dataTypeEnum.date,
-                },{
-                    id: "TEN_NODE",
-                    dataType: tableau.dataTypeEnum.string,
-                },{
-                    id: "ID_NODE",
-                    dataType: tableau.dataTypeEnum.string,
-                },{
-                        id: "H1",
+        (function() {
+            // Create the connector object
+            var myConnector = tableau.makeConnector();
+        
+            // Define the schema
+            myConnector.getSchema = function(schemaCallback) {
+                var cols = [{
+                        id: "NGAY",
+                        dataType: tableau.dataTypeEnum.date,
+                    },{
+                        id: "TEN_NODE",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H2",
+                        id: "ID_NODE",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H3",
+                        id: "CHUKY",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H4",
+                        id: "GIATRI-phutai-IAH",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H5",
+                        id: "GIATRI-thuydiennho-IAH",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H6",
+                        id: "TENNHAMAY",
                         dataType: tableau.dataTypeEnum.string,
                     },{
-                        id: "H7",
+                        id: "TEN_TM",
                         dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H8",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H9",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H10",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H11",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H12",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H13",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H14",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H15",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H16",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H17",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H18",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H19",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H20",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H21",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H22",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H23",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H24",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H25",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H26",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H27",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H28",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H29",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H30",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H31",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H32",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H33",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H34",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H35",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H36",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H37",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H38",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H39",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H40",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H41",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H42",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H43",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H44",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H45",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H46",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H47",
-                        dataType: tableau.dataTypeEnum.string,
-                    },{
-                        id: "H48",
-                        dataType: tableau.dataTypeEnum.string,
-                    },]
-    
-            var tableSchema = {
-                id: "evn",
-                alias: "EVN",
-                columns: cols
+                    },
+                ]
+        
+                var tableSchema = {
+                    id: "evn",
+                    alias: "EVN",
+                    columns: cols
+                };
+        
+                schemaCallback([tableSchema]);
             };
-    
-            schemaCallback([tableSchema]);
-        };
-    
-        // Download the data
-        myConnector.getData = function(table, doneCallback) {
-            $.ajax({
-                url: "http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH?tu_ngay=03/01/2024&den_ngay=04/12/2024", 
-                headers: {
-                    
-                    // 'Origin': '113.20.126.80'
-                },
-                success: function(resp) {
-                    var data = resp,
-                        tableData = [];
-    
-                    // Iterate over the JSON object
-                    if (Array.isArray(data)) {
-                      for (var i = 0, len = data.length; i < len; i++) {
-                          tableData.push({
-                            "NGAY": data[i].NGAY,"TEN_NODE": data[i].TEN_NODE,"ID_NODE": data[i].ID_NODE,"H1": data[i].H1,"H2": data[i].H2,"H3": data[i].H3,"H4": data[i].H4,"H5": data[i].H5,"H6": data[i].H6,"H7": data[i].H7,"H8": data[i].H8,"H9": data[i].H9,"H10": data[i].H10,"H11": data[i].H11,"H12": data[i].H12,"H13": data[i].H13,"H14": data[i].H14,"H15": data[i].H15,"H16": data[i].H16,"H17": data[i].H17,"H18": data[i].H18,"H19": data[i].H19,"H20": data[i].H20,"H21": data[i].H21,"H22": data[i].H22,"H23": data[i].H23,"H24": data[i].H24,"H25": data[i].H25,"H26": data[i].H26,"H27": data[i].H27,"H28": data[i].H28,"H29": data[i].H29,"H30": data[i].H30,"H31": data[i].H31,"H32": data[i].H32,"H33": data[i].H33,"H34": data[i].H34,"H35": data[i].H35,"H36": data[i].H36,"H37": data[i].H37,"H38": data[i].H38,"H39": data[i].H39,"H40": data[i].H40,"H41": data[i].H41,"H42": data[i].H42,"H43": data[i].H43,"H44": data[i].H44,"H45": data[i].H45,"H46": data[i].H46,"H47": data[i].H47,"H48": data[i].H48,
-                          });
-                      }
-                    } else if (typeof data === 'object') {
-                      for (const property in data) {
-                        tableData.push({
-                          [property+'']: data[property]
-                        });
-                      }
-                    }
-    
-                    table.appendRows(tableData);
-                    doneCallback();
-                }
+        
+            // Download the data
+            myConnector.getData = async function(table, doneCallback) {
+                const table1 = [];
+                const table2 = [];
+                await fetch("http://3.3.251.100:8000/baocaochuky/get-phutai-mien-IAH?tu_ngay=04/15/2024&den_ngay=04/18/2024")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                            for (var i = 0, len = data.length; i < len; i++) {
+                                table1.push({
+                                    "NGAY": data[i].NGAY, "TEN_NODE": data[i].TEN_NODE, "ID_NODE": data[i].ID_NODE, "CHUKY": data[i].CHUKY, "GIATRI-phutai-IAH": data[i].GIATRI,
+                                });
+                            }
+                        } else if (typeof data === 'object') {
+                            for (const property in data) {
+                                table1.push({
+                                    [property + '']: data[property]
+                                });
+                            }
+                        }
+                        // Xử lý dữ liệu ở đây
+                        console.log(table1);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                await fetch("http://3.3.251.100:8000/baocaochuky/get-thuydiennho-mien-IAH?tu_ngay=04/15/2024&den_ngay=04/18/2024")
+                    .then(response => response.json())
+                    .then(data => {
+                        if (Array.isArray(data)) {
+                          for (var i = 0, len = data.length; i < len; i++) {
+                              tableData.push({
+                                "NGAY": data[i].NGAY,"ID_NODE": data[i].ID_NODE,"CHUKY": data[i].CHUKY,"GIATRI-thuydiennho-IAH": data[i].GIATRI,"TENNHAMAY": data[i].TENNHAMAY,"TEN_TM": data[i].TEN_TM,
+                              });
+                          }
+                        } else if (typeof data === 'object') {
+                          for (const property in data) {
+                            tableData.push({
+                              [property+'']: data[property]
+                            });
+                          }
+                        }
+                        // Xử lý dữ liệu ở đây
+                        console.log(table2);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });                
+                table.appendRows([...table1, ...table2]);
+                doneCallback();
+            };
+        
+            tableau.registerConnector(myConnector);
+        
+            // Create event listeners for when the user submits the form
+            $(document).ready(function() {
+                // $("#submitButton").click(function() {
+                setTimeout(() => {
+                    tableau.connectionName = "evn"; // This will be the data source name in Tableau
+                    tableau.submit(); // This sends the connector object to Tableau
+                }, 1000);
+                // });
             });
-        };
-    
-        tableau.registerConnector(myConnector);
-    
-        // Create event listeners for when the user submits the form
-        $(document).ready(function() {
-            // $("#submitButton").click(function() {
-            setTimeout(() => {
-                tableau.connectionName = "evn"; // This will be the data source name in Tableau
-                tableau.submit(); // This sends the connector object to Tableau
-            }, 1000);
-            // });
-        });
-    })();
+        })();
         </script>
     </body>
     </html>  

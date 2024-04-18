@@ -156,7 +156,7 @@ export const defaultState = {
       now.getFullYear(),
       now.getMonth(),
       now.getDate() + 1, // the next day to get all time of today, ...
-      0, 0, 0 // ...at 00:00:00 hours      
+      0, 0, 0 // ...at 00:00:00 hours
     )),
   },
 };
